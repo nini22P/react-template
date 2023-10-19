@@ -8,9 +8,10 @@ const isProduction = process.env.NODE_ENV == 'production'
 const config = {
   entry: './src/index.tsx',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true
+    publicPath: './',
+    clean: true,
   },
   devServer: {
     // open: true,
