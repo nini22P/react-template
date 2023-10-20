@@ -30,7 +30,8 @@ module.exports = {
     },
     'plugins': [
         '@typescript-eslint',
-        'react'
+        'react',
+        'react-hooks',
     ],
     'settings': {
         'react': {
