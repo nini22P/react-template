@@ -10,7 +10,6 @@ const config = {
   output: {
     filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: './',
     clean: true,
   },
   devServer: {
@@ -51,6 +50,7 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production'
+    config.output.publicPath = './'
     config.plugins.push(new CompressionPlugin())
   } else {
     config.mode = 'development'
