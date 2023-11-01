@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+const { merge } = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
@@ -11,11 +12,6 @@ const config = {
     filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-  },
-  devServer: {
-    // open: true,
-    host: 'localhost',
-    port: 3000,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -47,13 +43,23 @@ const config = {
   },
 }
 
-module.exports = () => {
-  if (isProduction) {
-    config.mode = 'production'
-    config.output.publicPath = './'
-    config.plugins.push(new CompressionPlugin())
-  } else {
-    config.mode = 'development'
-  }
-  return config
+const prodConfig = {
+  mode: 'production',
+  output: {
+    publicPath: './',
+  },
+  plugins: [
+    new CompressionPlugin(),
+  ],
 }
+
+const devConfig = {
+  mode: 'development',
+  devServer: {
+    // open: true,
+    host: 'localhost',
+    port: 3000,
+  },
+}
+
+module.exports = () => merge(config, isProduction ? prodConfig : devConfig)
