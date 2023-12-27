@@ -4,6 +4,7 @@ const { merge } = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const isProduction = process.env.NODE_ENV == 'production'
 
 const config = {
@@ -60,6 +61,9 @@ const devConfig = {
     host: 'localhost',
     port: 3000,
   },
+  plugins: [
+    new ReactRefreshPlugin(),
+  ],
 }
 
 module.exports = () => merge(config, isProduction ? prodConfig : devConfig)
